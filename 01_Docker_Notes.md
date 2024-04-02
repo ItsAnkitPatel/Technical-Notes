@@ -1,0 +1,117 @@
+# Docker
+
+**Learned from Javascript Mastery** : [Video Link](https://www.youtube.com/watch?v=GFgJkfScVNU&t=18s)
+
+**Analogy:** You have a lunch box it doesn't matter where you eat (at office, at home, at a picnic spot) it will be same irrespective of the location. <br>
+That's how a docker is irrespective of OS it still works.
+
+Docker is a platform that enables Development, packaging and execution in a unified environment.
+
+```
+Developing => Packaging => Executing : It works on all machines
+```
+
+1. Consistency Across Environments : Docker ensures it works on different computers(OS) <br>
+   E.g Installing JS on different OS is different which makes the developer work hard, but docker commands is same for everyone so no more "IT WORKS ON MY MACHINE" scenarios.
+
+   - Reduces confusion
+   - Boost collaboration
+   - making our app development and deployment faster
+   - Keep everyone on the same page
+
+2. **Isolation**: Docker maintains the complete isolation between our application and dependencies.
+
+   - **Helps in**
+     - Better security
+     - Better debugging
+     - smooth development
+
+3. **Portability:** Docker let us move our application between different stages easily
+
+   - From development to testing, testing to production
+   - OR from one OS to another like moving from Linux to windows/mac vice-versa.
+
+4. Docker containers are lightweight and share the host resources. Making them much better than traditional VMs. This efficiency leads to faster application start time and less resources consumption.
+
+5. **Version Control:** Just like git docker also tracks the application which helps us to move between previous versions if something goes wrong.
+
+6. **Scalability**: On the basis of user traffic docker will create copies of our application that will serve the user. <br>
+   **Analogy:** Its like having multiple copies of an restaurant menu. When restaurant have more customers each menu serves one table.
+
+7. **Devops Integration:** Docker bridges the gap between development & operations. Streamlining from coding to deployment.
+   - This Integration ensures
+     - Developed
+     - Tested
+     - Deployed Efficiently
+
+## How does docker works ?
+
+There are two major important concepts in Docker
+
+1. Images
+2. Containers
+
+The entire workflow revolve around them.
+
+### Image
+
+A docker image is
+
+- Lightweight
+- Standalone
+- Executable package
+  which contains every thing to run a piece of software including code, runtime(like nodejs), libraries, system tools and even the OS.
+
+Docker image is like an recipe which tells the instruction on how to make/run the application.
+
+**Where we run these images?**<br>
+In **containers**. Containers are runnable instance of docker images. It represents the execution environment for a specific application.
+
+Docker Image like an recipe for cake. <br>
+And container is actually the real baked cake which is served by us or anyone else.
+
+From a single docker image we can create as many as container we want.
+
+### Ever heard about Docker Volume ?
+
+It is a persistent data storage mechanism. It allows to share the resources between docker container and a host machine(which can be a machine/server/or also you can share among multiple containers).
+
+- Helps in data durability and persistence even if the container is stopped or removed
+- Its just like a shared compartment/storage which exists outside the container.
+
+### Docker Network
+
+It's an communication channel that enables different docker containers to talk to each other or with the external world.
+
+- It creates connectivity, allowing containers to share information & services while marinating isolation.
+
+## Docker Workflow
+
+Docker workflow is distributed in three parts.
+
+1. Docker Client
+2. Docker Host (aka Docker Daemon)
+3. Docker Registry (aka Docker Hub)
+
+### 1. Docker Client
+
+A user interface for interacting with Docker. It's a tool which we use in docker to give commands.
+Either we use command line or GUI to give commands.
+
+### 2. Docker Host
+
+It is responsible for background process work like managing the dockers on the host system.
+
+- It listens for docker client commands.
+- It create and manages containers
+- Build images and handle other docker related tasks.
+
+### 3. Docker Registry
+
+It is a centralized repository of Docker Images. It hosts both private & public registries or packages.
+
+And we when in case we try to run an image which is actually not present locally on the machine docker pulls the image from the docker registry that's why it is very helpful.
+
+> Docker ==> Docker Hub <br>
+> Git ==> Github
+
