@@ -115,3 +115,56 @@ And we when in case we try to run an image which is actually not present locally
 > Docker ==> Docker Hub <br>
 > Git ==> Github
 
+## Time to install docker
+
+Installation steps: Best place is the [docs](https://www.docker.com/products/docker-desktop/)
+
+I am using Ubuntu (22.04)
+
+The below steps are for command-line interface.
+
+1. First update the packages
+
+```
+sudo apt update
+```
+
+2. Install docker
+
+```
+sudo apt install docker.io
+```
+
+3. Enable the docker service so that whenever we boot up our machine(ubuntu in my case) it automatically starts
+
+```
+sudo systemctl enable docker
+```
+
+4. Check the docker service status
+
+```
+sudo systemctl status docker
+```
+
+4.1. If the output says not enabled then run `sudo systemctl start docker`
+and then recheck once again with `status` command.
+
+5. For testing run this
+
+```
+sudo docker run hello-world
+```
+
+For Docker Desktop refer docs.
+
+What I did :
+
+- Created docker account from docker website.
+- created gpg-keys
+- initialize the pass
+- Then login inside docker desktop.
+  All the steps detail are present in docker. It will take some time.
+[Watch this video](https://www.youtube.com/watch?v=5_EA3rBCXmU)
+For me I totally gone through Docs and it worked fine.
+
