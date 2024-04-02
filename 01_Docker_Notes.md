@@ -165,6 +165,103 @@ What I did :
 - initialize the pass
 - Then login inside docker desktop.
   All the steps detail are present in docker. It will take some time.
-[Watch this video](https://www.youtube.com/watch?v=5_EA3rBCXmU)
-For me I totally gone through Docs and it worked fine.
+  [Watch this video](https://www.youtube.com/watch?v=5_EA3rBCXmU)
+  For me I totally gone through Docs and it worked fine.
 
+## How to create our own Docker Image ?
+
+By using `dockerfile`, in this file we write the instructions for docker to create the image
+
+Some commands for Dockerfile
+
+1. **FROM**: starter base of our image
+
+```docker
+FROM image[:tag] [AS name]
+# Example
+FROM ubuntu:22.04
+```
+
+2. **WORKDIR**: setting the path
+
+```docker
+WORKDIR /path/to/workdir
+
+#Example
+WORKDIR /app
+```
+
+3. **COPY**: copy the files/directories from the build context to the image
+
+```docker
+COPY [--chown=<user>:<group>] <src>... <dest>
+#Example
+COPY . /app
+```
+
+4. **RUN**: execute the commands the in shell during image build
+
+```docker
+RUN <command>
+#Example
+RUN npm run dev
+```
+
+5. **EXPOSE**: this informs the docker that the container will listen on specified network port at runtime.
+
+```docker
+EXPOSE <port> [<port>/<protocol>...]
+#Example
+EXPOSE 3000
+```
+
+6. **ENV**: sets the environment variables during build process.
+
+```docker
+ENV KEY=VALUE
+#Example
+ENV NODE_ENV=production
+```
+
+7. **ARG**: defines built time variables
+
+```docker
+ARG <name>[=<default value>]
+#Example
+ARG NODE_VERSION=20
+```
+
+8. **VOLUME**: creates a mount point for externally mounted volumes. Essentially specifying a location inside your container where you can connect external storage.
+
+```docker
+VOLUME ["/data"]
+#Example
+VOLUME /myvol
+```
+
+9. **CMD**: provides default command to execute when the container starts
+
+```docker
+CMD ["executable","param1","param2"]
+#Example
+CMD ["npm","run","dev"]
+CMD npm run dev
+```
+
+10. **ENTRYPOINT**: specifies the default executable to be run when the container starts
+
+**Difference between ENTRYPOINT and CMD**
+
+> The ENTRYPOINT command always executes, while the CMD command can be overridden. This distinction is essential when building Docker containers and determining the default behavior of your applications.
+
+[This article](https://codewithyury.com/docker-run-vs-cmd-vs-entrypoint/) explain the difference between RUN, CMD & ENTRYPOINT
+
+[Docker docs](https://docs.docker.com/reference/dockerfile/#understand-how-cmd-and-entrypoint-interact) on the same thing
+
+**KEY DIFFERENCE BETWEEN CMD & ENTRYPOINT**
+
+- **CMD**: Flexible, can be overridden, default executable.
+- **ENTRYPOINT**: cannot be overridden, fixed starting point.
+
+If both are used **CMD** arguments will be
+passed to **ENTRYPOINT**
