@@ -265,3 +265,35 @@ CMD npm run dev
 
 If both are used **CMD** arguments will be
 passed to **ENTRYPOINT**
+
+<hr>
+
+## Running an docker image
+0. Login in the terminal with your docker username and password.
+```docker
+docker login
+```
+I don't know but this is important to do before downloading an docker image, I am not able to see the changes in the **docker desktop** without docker login in terminal.
+
+1. Pull an docker image
+```docker
+docker pull ubuntu
+```
+If the image is not present locally it will pull it from the docker hub.
+
+
+2. Run the docker image
+```docker
+docker run -it ubuntu
+```
+`-it` **interactive**
+
+Now go inside **docker desktop** and inside **Containers** section you will see your image is running.
+
+Now in the terminal you will also see that the host name is looked just like it's an Ubuntu terminal.<br>
+For me it looked like this
+```bash
+root@6c1074cba1a4:/# 
+```
+Run all the commands you know for testing like `ls`, `uptime`, `touch`, `mkdir` etc.
+
