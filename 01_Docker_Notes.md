@@ -297,3 +297,88 @@ root@6c1074cba1a4:/#
 ```
 Run all the commands you know for testing like `ls`, `uptime`, `touch`, `mkdir` etc.
 
+<hr>
+
+## Create our own docker image
+
+For now we will create an docker image which says programmers communities favorite line "Hello World"
+
+1. For now create an 'hello-world' folder
+2. Inside this folder we will create `hello.js`(whatever name you like to give)
+   Inside this file write the code, right now we will just add single log
+   ```Javascript
+   console.log("Hello World! Docker Speaking");
+   ```
+3. Inside `hello-world` folder create a docker file called **`Dockerfile`** yup no dot no extension.
+4. From this point we are going to use the knowledge given in [How to create our own docker image](#how-to-create-our-own-docker-image) section
+5. First we need to select the **base image** to run the app and since we want to run an 
+javascript file we need an node runtime from docker hub.
+   - In this we are going to use alpine version of nodejs (lightweight version of Linux)
+     ```docker
+     FROM node:20-alpine;
+     ```
+   - Now setting the working directory where our all commands will be executed
+      ```docker
+      WORKDIR /app
+      ```
+   - Copy everything from current directory to our docker image
+      ```docker
+      COPY . .
+      ```
+      - First dot represents on our machine current directory and second dot represents our docker container current directory
+   
+   - Now we have to specify the commands we want to run in our docker container
+      ```docker
+      CMD node hello.js
+      ``` 
+   So the final file will look like this
+   ```docker
+   FROM node:20-alpine
+
+   WORKDIR /app
+
+   COPY . .
+
+   CMD node hello.js
+   ```
+6. Now inside your terminal navigate to the folder where your docker file is located in our case
+we will go inside `hello-world`
+```bash
+cd hello-world/
+```
+7. Now we will create an docker image.
+```bash
+sudo docker build -t hello-world .
+```
+
+`-t` option is for tag, if not given the `latest` tag will be given by default.
+In this case we are giving `hello-world` tag <br>
+`.` is for path for docker file, since we are inside the folder where dockerfile is present we will just use `.` <br>
+That's all. Our docker image is created🎉
+
+>Btw there is an interesting issue related to **`sudo docker images`** vs **`docker images`** when you have free time check out this [issue](https://github.com/docker/desktop-linux/issues/79)
+
+**IMPORTANT:** If you don't like to put `sudo` everytime you run an docker command then you run this command and restart your machine
+```bash
+sudo usermod -aG docker $USER
+```
+If you want a video for above command here it is: [quick video](https://www.youtube.com/watch?v=VjUbSe8ONhs) <br>
+but before that I still recommend to check this [issue](https://github.com/docker/desktop-linux/issues/79) once so that you know what actually you are doing.
+
+
+To check our docker image
+```docker
+docker images
+```
+
+8. Now all is left to run the docker image we've created.
+```docker
+docker run hello-world
+```
+9. And if we want to run an interactive session just like we did in ubuntu container
+```docker
+docker run -it hello-world sh
+```
+This will open the shell in our working directory `/app` <br>
+and now we can run our **`hello.js`** file just like any javascript file `node hello.js`<br> because we have node installed in our container
+
