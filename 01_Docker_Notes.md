@@ -11,7 +11,7 @@ Docker is a platform that enables Development, packaging and execution in a unif
 Developing => Packaging => Executing : It works on all machines
 ```
 
-1. Consistency Across Environments : Docker ensures it works on different computers(OS) <br>
+1. **Consistency Across Environments** : Docker ensures it works on different computers(OS) <br>
    E.g Installing JS on different OS is different which makes the developer work hard, but docker commands is same for everyone so no more "IT WORKS ON MY MACHINE" scenarios.
 
    - Reduces confusion
@@ -33,7 +33,7 @@ Developing => Packaging => Executing : It works on all machines
 
 4. Docker containers are lightweight and share the host resources. Making them much better than traditional VMs. This efficiency leads to faster application start time and less resources consumption.
 
-5. **Version Control:** Just like git docker also tracks the application which helps us to move between previous versions if something goes wrong.
+5. **Version Control:** Just like git, docker also tracks the application which helps us to move between previous versions if something goes wrong.
 
 6. **Scalability**: On the basis of user traffic docker will create copies of our application that will serve the user. <br>
    **Analogy:** Its like having multiple copies of an restaurant menu. When restaurant have more customers each menu serves one table.
