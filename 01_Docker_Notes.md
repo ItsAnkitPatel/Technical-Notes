@@ -2,19 +2,19 @@
 
 - [Index](#index)
 - [Docker](#docker)
-  - <a href="#how-does-docker-works-?">How does docker works ?</a>
+  - [How does docker works ?](#how-does-docker-works)
     - [Image](#image)
-    - [Ever heard about Docker Volume ?](#ever-heard-about-docker-volume-)
+    - [Ever heard about Docker Volume ?](#ever-heard-about-docker-volume)
     - [Docker Network](#docker-network)
   - [Docker Workflow](#docker-workflow)
     - [1. Docker Client](#1-docker-client)
     - [2. Docker Host](#2-docker-host)
     - [3. Docker Registry](#3-docker-registry)
   - [Time to install docker](#time-to-install-docker)
-  - [How to create our own Docker Image ?](#how-to-create-our-own-docker-image-)
+  - [How to create our own Docker Image ?](#how-to-create-our-own-docker-image)
   - [Running an docker image](#running-an-docker-image)
   - [Create our own docker image](#create-our-own-docker-image)
-  - [Dockerize React application](#dockerize-react-application)
+
 
 # Docker
 
@@ -63,7 +63,7 @@ Developing => Packaging => Executing : It works on all machines
 
 <hr>
 
-<h2 id=""> How does docker works ? </h2>
+<h2 id="how-does-docker-works"> How does docker works ? </h2>
 
 There are two major important concepts in Docker
 
@@ -72,7 +72,7 @@ There are two major important concepts in Docker
 
 The entire workflow revolve around them.
 
-<h3> Image </h3>
+<h3 id="image"> Image </h3>
 
 A docker image is
 
@@ -91,14 +91,14 @@ And container is actually the real baked cake which is served by us or anyone el
 
 From a single docker image we can create as many as container we want.
 
-<h3> Ever heard about Docker Volume ? </h3>
+<h3 id="ever-heard-about-docker-volume"> Ever heard about Docker Volume ? </h3>
 
 It is a persistent data storage mechanism. It allows to share the resources between docker container and a host machine(which can be a machine/server/or also you can share among multiple containers).
 
 - Helps in data durability and persistence even if the container is stopped or removed
 - Its just like a shared compartment/storage which exists outside the container.
 
-<h3> Docker Network </h3>
+<h3 id="docker-network"> Docker Network </h3>
 
 It's an communication channel that enables different docker containers to talk to each other or with the external world.
 
@@ -108,7 +108,7 @@ It's an communication channel that enables different docker containers to talk t
 
 <hr>
 
-<h2 id=""> Docker Workflow </h2>
+<h2 id="docker-workflow"> Docker Workflow </h2>
 
 Docker workflow is distributed in three parts.
 
@@ -116,12 +116,12 @@ Docker workflow is distributed in three parts.
 2. Docker Host (aka Docker Daemon)
 3. Docker Registry (aka Docker Hub)
 
-<h3> 1. Docker Client </h3>
+<h3 id="1-docker-client"> 1. Docker Client </h3>
 
 A user interface for interacting with Docker. It's a tool which we use in docker to give commands.
 Either we use command line or GUI to give commands.
 
-<h3> 2. Docker Host </h3>
+<h3 id="2-docker-host"> 2. Docker Host </h3>
 
 It is responsible for background process work like managing the dockers on the host system.
 
@@ -129,13 +129,14 @@ It is responsible for background process work like managing the dockers on the h
 - It create and manages containers
 - Build images and handle other docker related tasks.
 
-<h3> 3. Docker Registry </h3>
+<h3 id="3-docker-registry"> 3. Docker Registry </h3>
 
 It is a centralized repository of Docker Images. It hosts both private & public registries or packages.
 
 And we when in case we try to run an image which is actually not present locally on the machine docker pulls the image from the docker registry that's why it is very helpful.
 
 > Docker ==> Docker Hub <br>
+> is just like <br>
 > Git ==> Github
 > <br>
 
@@ -143,7 +144,7 @@ And we when in case we try to run an image which is actually not present locally
 
 <hr>
 
-<h2 id=""> Time to install docker </h2>
+<h2 id="time-to-install-docker"> Time to install docker </h2>
 
 Installation steps: Best place is the [docs](https://www.docker.com/products/docker-desktop/)
 
@@ -200,7 +201,7 @@ For me I totally gone through Docs and it worked fine.
 
 <hr>
 
-<h2 id=""> How to create our own Docker Image ? </h2>
+<h2 id="how-to-create-our-own-docker-image"> How to create our own Docker Image ? </h2>
 
 By using `dockerfile`, in this file we write the instructions for docker to create the image
 
@@ -303,7 +304,7 @@ passed to **ENTRYPOINT**
 
 <hr>
 
-<h2 id=""> Running an docker image </h2>
+<h2 id="running-an-docker-image"> Running an docker image </h2>
 
 0. Login in the terminal with your docker username and password.
 
@@ -346,7 +347,7 @@ If the image is not present locally it will pull it from the docker hub.
 
 <hr>
 
-<h2 id=""> Create our own docker image </h2>
+<h2 id="create-our-own-docker-image"> Create our own docker image </h2>
 
 For now we will create an docker image which says programmers communities favorite line "Hello World"
 
@@ -448,10 +449,3 @@ For now we will create an docker image which says programmers communities favori
 
 <hr>
 
-<h2 id=""> Dockerize React application </h2>
-
-First create react application
-
-```npm
-npm create vite@latest react-docker
-```
