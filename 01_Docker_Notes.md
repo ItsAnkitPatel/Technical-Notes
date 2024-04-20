@@ -1,3 +1,21 @@
+# Index
+
+- [Index](#index)
+- [Docker](#docker)
+  - <a href="#how-does-docker-works-?">How does docker works ?</a>
+    - [Image](#image)
+    - [Ever heard about Docker Volume ?](#ever-heard-about-docker-volume-)
+    - [Docker Network](#docker-network)
+  - [Docker Workflow](#docker-workflow)
+    - [1. Docker Client](#1-docker-client)
+    - [2. Docker Host](#2-docker-host)
+    - [3. Docker Registry](#3-docker-registry)
+  - [Time to install docker](#time-to-install-docker)
+  - [How to create our own Docker Image ?](#how-to-create-our-own-docker-image-)
+  - [Running an docker image](#running-an-docker-image)
+  - [Create our own docker image](#create-our-own-docker-image)
+  - [Dockerize React application](#dockerize-react-application)
+
 # Docker
 
 **Learned from Javascript Mastery** : [Video Link](https://www.youtube.com/watch?v=GFgJkfScVNU&t=18s)
@@ -11,7 +29,7 @@ Docker is a platform that enables Development, packaging and execution in a unif
 Developing => Packaging => Executing : It works on all machines
 ```
 
-1. **Consistency Across Environments** : Docker ensures it works on different computers(OS) <br>
+1. Consistency Across Environments : Docker ensures it works on different computers(OS) <br>
    E.g Installing JS on different OS is different which makes the developer work hard, but docker commands is same for everyone so no more "IT WORKS ON MY MACHINE" scenarios.
 
    - Reduces confusion
@@ -33,18 +51,19 @@ Developing => Packaging => Executing : It works on all machines
 
 4. Docker containers are lightweight and share the host resources. Making them much better than traditional VMs. This efficiency leads to faster application start time and less resources consumption.
 
-5. **Version Control:** Just like git, docker also tracks the application which helps us to move between previous versions if something goes wrong.
+5. **Version Control:** Just like git docker also tracks the application which helps us to move between previous versions if something goes wrong.
 
 6. **Scalability**: On the basis of user traffic docker will create copies of our application that will serve the user. <br>
    **Analogy:** Its like having multiple copies of an restaurant menu. When restaurant have more customers each menu serves one table.
 
 7. **Devops Integration:** Docker bridges the gap between development & operations. Streamlining from coding to deployment.
-   - This Integration ensures
-     - Developed
-     - Tested
-     - Deployed Efficiently
+   - This Integration ensures - Developed - Tested - Deployed Efficiently
+   <br>
+   <div align="right"><b><a href="#index">↥ Back To Top</a></b></div>
 
-## How does docker works ?
+<hr>
+
+<h2 id=""> How does docker works ? </h2>
 
 There are two major important concepts in Docker
 
@@ -53,7 +72,7 @@ There are two major important concepts in Docker
 
 The entire workflow revolve around them.
 
-### Image
+<h3> Image </h3>
 
 A docker image is
 
@@ -72,20 +91,24 @@ And container is actually the real baked cake which is served by us or anyone el
 
 From a single docker image we can create as many as container we want.
 
-### Ever heard about Docker Volume ?
+<h3> Ever heard about Docker Volume ? </h3>
 
 It is a persistent data storage mechanism. It allows to share the resources between docker container and a host machine(which can be a machine/server/or also you can share among multiple containers).
 
 - Helps in data durability and persistence even if the container is stopped or removed
 - Its just like a shared compartment/storage which exists outside the container.
 
-### Docker Network
+<h3> Docker Network </h3>
 
 It's an communication channel that enables different docker containers to talk to each other or with the external world.
 
 - It creates connectivity, allowing containers to share information & services while marinating isolation.
+<br>
+<div align="right"><b><a href="#index">↥ Back To Top</a></b></div>
 
-## Docker Workflow
+<hr>
+
+<h2 id=""> Docker Workflow </h2>
 
 Docker workflow is distributed in three parts.
 
@@ -93,12 +116,12 @@ Docker workflow is distributed in three parts.
 2. Docker Host (aka Docker Daemon)
 3. Docker Registry (aka Docker Hub)
 
-### 1. Docker Client
+<h3> 1. Docker Client </h3>
 
 A user interface for interacting with Docker. It's a tool which we use in docker to give commands.
 Either we use command line or GUI to give commands.
 
-### 2. Docker Host
+<h3> 2. Docker Host </h3>
 
 It is responsible for background process work like managing the dockers on the host system.
 
@@ -106,7 +129,7 @@ It is responsible for background process work like managing the dockers on the h
 - It create and manages containers
 - Build images and handle other docker related tasks.
 
-### 3. Docker Registry
+<h3> 3. Docker Registry </h3>
 
 It is a centralized repository of Docker Images. It hosts both private & public registries or packages.
 
@@ -114,8 +137,13 @@ And we when in case we try to run an image which is actually not present locally
 
 > Docker ==> Docker Hub <br>
 > Git ==> Github
+> <br>
 
-## Time to install docker
+<div align="right"><b><a href="#index">↥ Back To Top</a></b></div>
+
+<hr>
+
+<h2 id=""> Time to install docker </h2>
 
 Installation steps: Best place is the [docs](https://www.docker.com/products/docker-desktop/)
 
@@ -164,11 +192,15 @@ What I did :
 - created gpg-keys
 - initialize the pass
 - Then login inside docker desktop.
-  All the steps detail are present in docker. It will take some time.
-  [Watch this video](https://www.youtube.com/watch?v=5_EA3rBCXmU)
-  For me I totally gone through Docs and it worked fine.
+All the steps detail are present in docker. It will take some time.
+[Watch this video](https://www.youtube.com/watch?v=5_EA3rBCXmU)
+For me I totally gone through Docs and it worked fine.
+<br>
+<div align="right"><b><a href="#index">↥ Back To Top</a></b></div>
 
-## How to create our own Docker Image ?
+<hr>
+
+<h2 id=""> How to create our own Docker Image ? </h2>
 
 By using `dockerfile`, in this file we write the instructions for docker to create the image
 
@@ -265,41 +297,56 @@ CMD npm run dev
 
 If both are used **CMD** arguments will be
 passed to **ENTRYPOINT**
+<br>
+
+<div align="right"><b><a href="#index">↥ Back To Top</a></b></div>
 
 <hr>
 
-## Running an docker image
+<h2 id=""> Running an docker image </h2>
+
 0. Login in the terminal with your docker username and password.
+
 ```docker
 docker login
 ```
+
 I don't know but this is important to do before downloading an docker image, I am not able to see the changes in the **docker desktop** without docker login in terminal.
 
 1. Pull an docker image
+
 ```docker
 docker pull ubuntu
 ```
+
 If the image is not present locally it will pull it from the docker hub.
 
-
 2. Run the docker image
-```docker
-docker run -it ubuntu
-```
-`-it` **interactive**
 
-Now go inside **docker desktop** and inside **Containers** section you will see your image is running.
+   ```docker
+   docker run -it ubuntu
+   ```
 
-Now in the terminal you will also see that the host name is looked just like it's an Ubuntu terminal.<br>
-For me it looked like this
-```bash
-root@6c1074cba1a4:/# 
-```
-Run all the commands you know for testing like `ls`, `uptime`, `touch`, `mkdir` etc.
+   `-it` **interactive**
+
+   Now go inside **docker desktop** and inside **Containers** section you will see your image is running.
+
+   Now in the terminal you will also see that the host name is looked just like it's an Ubuntu terminal.<br>
+   For me it looked like this
+
+   ```bash
+   root@6c1074cba1a4:/#
+   ```
+
+   Run all the commands you know for testing like `ls`, `uptime`, `touch`, `mkdir` etc.
+
+<br>
+
+<div align="right"><b><a href="#index">↥ Back To Top</a></b></div>
 
 <hr>
 
-## Create our own docker image
+<h2 id=""> Create our own docker image </h2>
 
 For now we will create an docker image which says programmers communities favorite line "Hello World"
 
@@ -311,27 +358,31 @@ For now we will create an docker image which says programmers communities favori
    ```
 3. Inside `hello-world` folder create a docker file called **`Dockerfile`** yup no dot no extension.
 4. From this point we are going to use the knowledge given in [How to create our own docker image](#how-to-create-our-own-docker-image) section
-5. First we need to select the **base image** to run the app and since we want to run an 
-javascript file we need an node runtime from docker hub.
+5. First we need to select the **base image** to run the app and since we want to run an
+   javascript file we need an node runtime from docker hub.
+
    - In this we are going to use alpine version of nodejs (lightweight version of Linux)
      ```docker
      FROM node:20-alpine;
      ```
    - Now setting the working directory where our all commands will be executed
-      ```docker
-      WORKDIR /app
-      ```
+     ```docker
+     WORKDIR /app
+     ```
    - Copy everything from current directory to our docker image
-      ```docker
-      COPY . .
-      ```
-      - First dot represents on our machine current directory and second dot represents our docker container current directory
-   
+
+     ```docker
+     COPY . .
+     ```
+
+     - First dot represents on our machine current directory and second dot represents our docker container current directory
+
    - Now we have to specify the commands we want to run in our docker container
-      ```docker
-      CMD node hello.js
-      ``` 
-   So the final file will look like this
+     ```docker
+     CMD node hello.js
+     ```
+     So the final file will look like this
+
    ```docker
    FROM node:20-alpine
 
@@ -341,44 +392,66 @@ javascript file we need an node runtime from docker hub.
 
    CMD node hello.js
    ```
+
 6. Now inside your terminal navigate to the folder where your docker file is located in our case
-we will go inside `hello-world`
-```bash
-cd hello-world/
-```
+   we will go inside `hello-world`
+
+   ```bash
+   cd hello-world/
+   ```
+
 7. Now we will create an docker image.
-```bash
-sudo docker build -t hello-world .
-```
 
-`-t` option is for tag, if not given the `latest` tag will be given by default.
-In this case we are giving `hello-world` tag <br>
-`.` is for path for docker file, since we are inside the folder where dockerfile is present we will just use `.` <br>
-That's all. Our docker image is created🎉
+   ```bash
+   sudo docker build -t hello-world .
+   ```
 
->Btw there is an interesting issue related to **`sudo docker images`** vs **`docker images`** when you have free time check out this [issue](https://github.com/docker/desktop-linux/issues/79)
+   `-t` option is for tag, if not given the `latest` tag will be given by default.
+   In this case we are giving `hello-world` tag <br>
+   `.` is for path for docker file, since we are inside the folder where dockerfile is present we will just use `.` <br>
+   That's all. Our docker image is created🎉
 
-**IMPORTANT:** If you don't like to put `sudo` everytime you run an docker command then you run this command and restart your machine
-```bash
-sudo usermod -aG docker $USER
-```
-If you want a video for above command here it is: [quick video](https://www.youtube.com/watch?v=VjUbSe8ONhs) <br>
-but before that I still recommend to check this [issue](https://github.com/docker/desktop-linux/issues/79) once so that you know what actually you are doing.
+   > Btw there is an interesting issue related to **`sudo docker images`** vs **`docker images`** when you have free time check out this [issue](https://github.com/docker/desktop-linux/issues/79)
 
+   **IMPORTANT:** If you don't like to put `sudo` everytime you run an docker command then you run this command and restart your machine
 
-To check our docker image
-```docker
-docker images
-```
+   ```bash
+   sudo usermod -aG docker $USER
+   ```
+
+   If you want a video for above command here it is: [quick video](https://www.youtube.com/watch?v=VjUbSe8ONhs) <br>
+   but before that I still recommend to check this [issue](https://github.com/docker/desktop-linux/issues/79) once so that you know what actually you are doing.
+
+   To check our docker image
+
+   ```docker
+   docker images
+   ```
 
 8. Now all is left to run the docker image we've created.
-```docker
-docker run hello-world
-```
-9. And if we want to run an interactive session just like we did in ubuntu container
-```docker
-docker run -it hello-world sh
-```
-This will open the shell in our working directory `/app` <br>
-and now we can run our **`hello.js`** file just like any javascript file `node hello.js`<br> because we have node installed in our container
 
+   ```docker
+   docker run hello-world
+   ```
+
+9. And if we want to run an interactive session just like we did in ubuntu container
+
+   ```docker
+   docker run -it hello-world sh
+   ```
+
+   This will open the shell in our working directory `/app` <br>
+   and now we can run our **`hello.js`** file just like any javascript file `node hello.js`<br> because we have node installed in our container
+
+<br>
+<div align="right"><b><a href="#index">↥ Back To Top</a></b></div>
+
+<hr>
+
+<h2 id=""> Dockerize React application </h2>
+
+First create react application
+
+```npm
+npm create vite@latest react-docker
+```
