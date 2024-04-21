@@ -14,7 +14,9 @@
   - [How to create our own Docker Image ?](#how-to-create-our-own-docker-image)
   - [Running an docker image](#running-an-docker-image)
   - [Create our own docker image](#create-our-own-docker-image)
-
+  - [Dockerize React application](#dockerize-react-application)
+    - [Removing docker containers & images](#remove-images-containers)
+    - [Reflecting Changes inside Docker](#reflecting-changes)
 
 # Docker
 
@@ -449,3 +451,245 @@ For now we will create an docker image which says programmers communities favori
 
 <hr>
 
+<h2 id="dockerize-react-application"> Dockerize React application </h2>
+
+1. First create react application
+
+   ```npm
+   npm create vite@latest react-docker
+   ```
+
+No need to do `npm i` we are going to install node_modules inside the docker image.
+
+2. Go inside `react-docker/` and create a `Dockerfile` and put this code inside the Dockerfile.
+
+   ```docker
+   # set the base image to create the image for react app
+   FROM node:20-alpine
+
+   # create a user with permissions to run the app
+   # -S -> create a system user
+   # -G -> add the user to a group
+   # This is done to avoid running the app as root
+   # If the app is run as root, any vulnerability in the app can be exploited to gain access to the host system
+   # It's a good practice to run the app as a non-root user
+   RUN addgroup app && adduser -S -G app app
+
+   # set the user to run the app
+   USER app
+
+   # set the working directory to /app
+   WORKDIR /app
+
+   # copy package.json and package-lock.json to the working directory
+   # This is done before copying the rest of the files to take advantage of Docker’s cache
+   # If the package.json and package-lock.json files haven’t changed, Docker will use the cached dependencies
+   COPY package*.json ./
+
+   # sometimes the ownership of the files in the working directory is changed to root
+   # and thus the app can't access the files and throws an error -> EACCES: permission denied
+   # to avoid this, change the ownership of the files to the root user
+   USER root
+
+   # change the ownership of the /app directory to the app user
+   # chown -R <user>:<group> <directory>
+   # chown command changes the user and/or group ownership of for given file.
+   RUN chown -R app:app .
+
+   # change the user back to the app user
+   USER app
+
+   # install dependencies
+   RUN npm install
+
+   # copy the rest of the files to the working directory
+   COPY . .
+
+   # expose port 5173 to tell Docker that the container listens on the specified network ports at runtime
+   EXPOSE 5173
+
+   # command to run the app
+   CMD npm run dev
+   ```
+
+   > I got this dockerfile code from **javascript mastery** YT channel
+
+3. Inside `react-docker/` create `.dockerignore` and write these lines
+
+   ```docker
+   node_modules/
+   ```
+
+   Our docker have `package.json` & `package-lock.json` file which means it will download <br>
+   the node modules everytime docker image starts, so its ok to remove node_modules
+
+4. Time to dockerize our react-app. <br>
+   In terminal navigate to `react-docker` directory and run this command
+   ```docker
+   docker build -t react-docker .
+   ```
+5. Run the docker image
+
+   ```docker
+   docker run react-docker
+   ```
+
+   But right now if we try to open the url `http://localhost:5173/` we gonna get error.
+
+   The reason is our host machine do not know about this port even though our container knows on which port the docker image should listen
+   and the main reason behind this that docker runs
+   in isolation environment that means the port will not be exposed on the host machine. <br>
+   Inshort even though the port listening inside the container, it cannot be accessed from the outside.
+
+   **So what's the solution ?** <br>
+   Port mapping.
+
+   This concept of docker helps to map the port between the container and the host machine.
+
+   The structure is like this
+
+   ```
+   docker run -p docker-container-port:host-port docker-image-name
+   ```
+
+   In our case this is how it will look
+
+   ```
+   docker run -p 5173:5173 react-docker
+   ```
+
+   But this is not enough!
+
+   We are using vite so we have to let it know too. For that we will go inside `react-docker/src/package.json` and change the`dev` value from `"dev":"vite"` to `"dev":"vite --host"`
+
+   Now if we run our previous command i.e
+
+   ```docker
+   docker run -p 5173:5173 react-docker
+   ```
+
+   We gonna get error like this
+
+   ```
+   docker: Error response from daemon: driver failed programming external connectivity on endpoint
+   serene_nobel (358342a4a36f819d006ba130ef0e617e962d5473f472cb71fb3814cb016a4b35): Bind for
+   0.0.0.0:5173 failed: port is already allocated.
+   ERRO[0000] error waiting for container: context canceled
+   ```
+
+   Long story short the error says the port is already in use.
+
+   So what we gonna do? <br>
+   We will stop the container and re run the container
+
+   To do that we first have to first find the docker container id using `ps`
+
+   ```docker
+   docker ps
+   ```
+
+   This will list out our all containers(default it show the running ones) with the port they are listening to too.
+
+   To list out all the available docker container.
+
+   Now take the container id of `react-docker` container from `CONTAINER ID` column which we get using `docker ps` command. After that stop that container using below command
+
+   ```docker
+   docker stop container-id
+   ```
+
+   This will stop our `react-docker` now re run the container with host port
+
+   ```docker
+   docker run -p 5173:5173
+   ```
+
+   Now you can see the website running at `http://localhost:5173/`
+
+   Just in case you deleted your image then just build the image using `docker build -t react-docker .` and map the port using `docker run -p 5173:5173`
+
+<h3 id="remove-images-containers"> Removing Containers And Images </h3>
+
+- To remove a specific container use `rm`
+
+  ```docker
+  docker rm container-id
+  ```
+
+- To remove a running container use `--force` flag (you can use the shortcut `-f` too) with `rm`
+  ```docker
+  docker rm container-id --force
+  ```
+- To remove all the inactive container then use the below command
+
+  ```docker
+  docker container prune
+  ```
+
+  You will get the prompt of Y/N choose Y and enter to proceed and delete the inactive containers.
+
+- For removing an image use `rmi`
+
+  ```docker
+  docker rmi Image-Id
+  ```
+
+  You can get the image id using `docker images`
+
+  All of these actions can be performed on Docker Desktop GUI too.
+
+  For id we can use the starting three letters of the ID. e.g. `372a8ca0de4b` we can use `372` if three letters doesn't work then use the whole ID.
+
+<h3 id="reflecting-changes">Reflecting Changes inside Docker</h3>
+
+If we make any changes inside our local `react-docker` directory those changes will not reflect on the container.<br>
+We want the same experience as we get in local system don't we ?
+
+For that we will run this command with -v flag
+
+```docker
+docker run -p 5173:5173 -v "$(pwd):/app" -v /app/node_modules react-docker
+```
+
+This one not working at all for me. Eaccess issues.
+
+If I find any answer in future I will add it here later. I have already spend many hours figuring it out
+but it's not working so I choose to move to next step.
+
+This [issue](https://github.com/vitejs/vite/issues/11620) might help you.
+
+For now in my Dockerfile I'm Removing the `USER app` after `RUN chown -R app:app .` worked for me.
+[Answer reference](https://github.com/adrianhajdin/docker-course/issues/4#issuecomment-1921701332)
+
+<br>
+<br>
+<br>
+
+After some more research and debugging I found out that the `-v` changes the file access to root privileges.
+Here's the chatgpt concise answer:
+
+```
+when you run the container with the volume mount
+docker run -p 5173:5173 -v "$(pwd):/app" -v /app/node_modules react-docker,
+you're mounting the current directory ($(pwd)) to the `/app` directory inside the container.
+This effectively replaces the /app directory inside the container with the contents of your local directory.
+
+The ownership and permissions of the files and directories in your local directory are likely different from
+what's expected inside the container. Therefore, when the container runs, the ownership and permissions of
+the files and directories are determined by your local filesystem,
+which is why they appear to be owned by root instead of app.
+
+To maintain consistent ownership and permissions,
+you might need to ensure that the files and directories in your local directory have the correct ownership
+and permissions before running the container with the volume mount. Alternatively,
+you could adjust the ownership and permissions inside the container
+using commands in the Dockerfile or entrypoint script.
+```
+
+But still I haven't found how to change the user during `-v` flag usecase.
+> Some useful insight: When we use `COPY` it sets the file access privilege which we copied to our container as **root**
+
+<br>
+<div align="right"><b><a href="#index">↥ Back To Top</a></b></div>
+
+<hr>
