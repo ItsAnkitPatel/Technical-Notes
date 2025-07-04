@@ -66,13 +66,6 @@ New way to create virtual environment is `uv`
 **How to organize your python code**
 
 - create a folder for your project
-- inside the folder, create a file named `main.py` or `app.py` (or any name you prefer)
-- create a folder named `src` or `lib` to store your source code
-- inside the `src` or `lib` folder, create a file named `__init__.py` to make it a package
-- create additional modules (Python files) as needed in the `src` or `lib` folder
-- if you have multiple modules, you can create subfolders to organize them further
-- create a `requirements.txt` file to list the dependencies for your project
-- create a `README.md` file to document your project
 
 <hr />
 
@@ -203,7 +196,55 @@ print("e" in s)  # Output: True
 print("x" not in s)  # Output: True
 ```
 
+<br />
+<br />
+
+**Tuples**
+
+- A tuple is an ordered collection of items that can contain elements of different types, including other tuples. Tuples are immutable, meaning you cannot change their content after creation. They are defined using parentheses `()`, and elements are separated by commas.
+- Tuples can be indexed and sliced, similar to lists, but they cannot be modified after creation.
+
+```python
+my_tuple = (1, 2, 3, "hello", (4, 5))
+print(my_tuple[0])  # Output: 1
+print(my_tuple[3])  # Output: 'hello'
+print(my_tuple[4][1])  # Output: 5 (accessing an element from a nested tuple)
+```
+
+Tuples are often used to group related data together, and they can be _unpacked_ into variables:
+
+```python
+x, y, z = (1, 2, 3)
+print(x)  # Output: 1
+print(y)  # Output: 2
+print(z)  # Output: 3
+```
+
+Tuples can also be used as keys in **dictionaries** because they are immutable, while lists cannot be used as dictionary keys.
+
+```python
+my_dict = {(1, 2): "value1", (3, 4): "value2"}
+print(my_dict[(1, 2)])  # Output: 'value1
+```
+
+Tuples are generally used when you want to ensure that the data cannot be modified, or when you want to use them as keys in dictionaries. They are also slightly more memory-efficient than lists due to their immutability.
+<br />
+
 <hr/>
+
+**List** _(mutable data type)_
+
+- A list is an ordered collection of items that can contain elements of different types, including other lists. Lists are mutable, meaning you can change their content after creation. Similar like arrays in other programming languages, lists can be indexed and sliced.
+- Lists are defined using square brackets `[]`, and elements are separated by commas.
+
+```python
+my_list = [1, 2, 3, "hello", [4, 5]]
+print(my_list[0])  # Output: 1
+print(my_list[3])  # Output: 'hello'
+print(my_list[4][1])  # Output: 5 (accessing an element from a nested list)
+```
+
+<hr />
 
 **After learning python**
 
