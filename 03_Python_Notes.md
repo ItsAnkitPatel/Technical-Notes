@@ -244,6 +244,112 @@ print(my_list[3])  # Output: 'hello'
 print(my_list[4][1])  # Output: 5 (accessing an element from a nested list)
 ```
 
+**Set** _(mutable data type)_
+
+- A set is an unordered collection of unique items. Sets are mutable, meaning you can add or remove elements after creation. They are defined using curly braces `{}` or the `set()` constructor.
+- Sets do not allow duplicate elements, and they are useful for membership testing and removing duplicates from a list.
+
+```python
+my_set = {1, 2, 3, "hello"}
+print(my_set)  # Output: {1, 2, 3, 'hello'}
+my_set.add(4)  # Adding an element
+print(my_set)  # Output: {1, 2, 3, 'hello', 4}
+my_set.remove(2)  # Removing an element
+print(my_set)  # Output: {1, 3, 'hello', 4}
+```
+
+- Sets do not support indexing or slicing, as they are unordered collections. However, you can check for membership using the `in` keyword.
+
+```python
+my_set = {1, 2, 3, "hello"}
+print(2 in my_set)  # Output: True
+print("world" in my_set)  # Output: False
+```
+
+- Sets are often used for operations like union, intersection, and difference, which are common in mathematical set theory.
+- Sets can also be used to remove duplicates from a list by converting the list to a set and then back to a list.
+
+```python
+my_list = [1, 2, 2, 3, "hello", "hello"]
+my_set = set(my_list)  # Convert list to set to remove duplicates
+print(my_set)  # Output: {1, 2, 3, 'hello'}
+my_list_no_duplicates = list(my_set)  # Convert set back to list
+print(my_list_no_duplicates)  # Output: [1, 2, 3, 'hello']
+```
+
+**frozenset** _(immutable data type)_
+
+- A `frozenset` is an immutable version of a set. It is an unordered collection of unique items, but unlike a regular set, you cannot add or remove elements after creation. Frozensets are defined using the `frozenset()` constructor.
+- Frozensets are useful when you need a set-like structure that should not change, such as when using sets as keys in dictionaries or elements in other sets.
+
+```python
+my_frozenset = frozenset([1, 2, 3, "hello"])
+print(my_frozenset)  # Output: frozenset({1, 2, 3, 'hello'})
+# my_frozenset.add(4)  # This will raise an AttributeError because frozensets are immutable
+```
+
+- You can perform set operations like union, intersection, and difference with frozensets, just like with regular sets, but you cannot modify the frozenset itself.
+
+```python
+set1 = frozenset([1, 2, 3])
+set2 = frozenset([3, 4, 5])
+print(set1.union(set2))  # Output: frozenset({1, 2, 3, 4, 5})
+print(set1.intersection(set2))  # Output: frozenset({3})
+print(set1.difference(set2))  # Output: frozenset({1, 2})
+```
+
+- Frozensets can be used as keys in dictionaries or elements in other sets because they are immutable, while regular sets cannot be used in these contexts.
+
+```python
+my_dict = {frozenset([1, 2]): "value1", frozenset([3, 4]): "value2"}
+print(my_dict[frozenset([1, 2])])  # Output: 'value1'
+```
+
+**NOTE** : Dictionaries also have union, intersection, and difference operations, but they are not as commonly used as in sets. Dictionaries are primarily used for key-value pairs, while sets and frozensets are used for unique collections of items.
+
+**Dictionary** _(mutable data type)_
+
+- A dictionary is an unordered collection of key-value pairs. Each key is unique, and it maps to a specific value. Dictionaries are mutable, meaning you can change their content after creation. They are defined using curly braces `{}` with key-value pairs separated by colons `:`.
+
+```python
+my_dict = {
+    "name": "Alice",
+    "age": 30,
+    "city": "New York",
+    "hobbies": ["reading", "traveling"]
+}
+print(my_dict["name"])  # Output: 'Alice'
+print(my_dict["age"])  # Output: 30
+print(my_dict["hobbies"][0])  # Output: 'reading' (accessing a list within a dictionary)
+```
+
+Dictionaries can be used to store related data in a structured way, allowing you to access values using their corresponding keys. You can add, remove, or modify key-value pairs in a dictionary.
+
+```python
+my_dict["country"] = "USA"  # Adding a new key-value pair
+print(my_dict)  # Output: {'name': 'Alice', 'age': 30, 'city': 'New York', 'hobbies': ['reading', 'traveling'], 'country': 'USA'}
+my_dict["age"] = 31  # Modifying an existing key-value pair
+print(my_dict)  # Output: {'name': 'Alice', 'age': 31, 'city': 'New York', 'hobbies': ['reading', 'traveling'], 'country': 'USA'}
+del my_dict["city"]  # Removing a key-value pair
+print(my_dict)  # Output: {'name': 'Alice', 'age': 31, 'hobbies': ['reading', 'traveling'], 'country': 'USA'}
+```
+
+Dictionaries can also be nested, meaning you can have dictionaries within dictionaries, or dictionaries containing lists or other data structures.
+
+```python
+nested_dict = {
+    "person": {
+        "name": "Bob",
+        "age": 25
+    },
+    "skills": ["Python", "JavaScript"]
+}
+print(nested_dict["person"]["name"])  # Output: 'Bob'
+print(nested_dict["skills"][1])  # Output: 'JavaScript'
+```
+
+Dictionaries are widely used in Python for various purposes, such as storing configuration settings, representing JSON data, and managing key-value pairs in applications. They provide efficient access to values based on their keys, making them a powerful data structure for many programming tasks.
+
 <hr />
 
 **After learning python**
