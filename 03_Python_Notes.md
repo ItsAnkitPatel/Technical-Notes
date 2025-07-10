@@ -352,6 +352,54 @@ Dictionaries are widely used in Python for various purposes, such as storing con
 
 <hr />
 
+**Conditionals**
+
+Coming from JS background, you might be familiar with the `if`, `else if`, and `else` statements. In Python, the syntax is slightly different, but the logic remains the same.
+
+example of if-else statement in python
+
+```python
+age = 18
+if age < 18:
+    print("You are a minor.")
+elif age == 18:
+    print("You are exactly 18 years old.")
+else:
+    print("You are an adult.")
+
+```
+
+Output: `You are exactly 18 years old.`
+
+<br />
+<br />
+
+**match**
+
+Match is just like switch statement in JS, but it is more powerful and flexible. It allows you to match patterns in data structures, making it easier to work with complex data.
+
+A simple example of match statement in python
+
+```python
+seat_type = input("Enter seat type (sleeper/AC/general/luxury): ").lower()
+
+match seat_type:
+    case "sleeper":
+        print("Sleeper - No AC, beds available")
+    case "ac":
+        print("AC - Air conditioned, comfy ride")
+    case "general":
+        print("General - Cheapest option, no reservation")
+    case "luxury":
+        print("Luxury - Premium seats with meals")
+    case _:
+        print("Invalid seat type")
+```
+
+Output: `AC - Air conditioned, comfy ride`
+
+<hr />
+
 **After learning python**
 
 - [PEP 8 – Style Guide for Python Code](https://peps.python.org/pep-0008/)
