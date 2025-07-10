@@ -400,6 +400,264 @@ Output: `AC - Air conditioned, comfy ride`
 
 <hr />
 
+**Loops**
+
+In python there are two types of loops: `for` and `while`.
+**for loop**: Used to iterate over a sequence (like a list, tuple, or string) or any iterable object.
+
+```python
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)
+```
+
+Output:
+
+```
+apple
+banana
+cherry
+```
+
+`range`, `enumerate`, and `zip` are built-in functions that can be used with for loops.
+**range**: Generates a sequence of numbers, often used for iterating a specific number of times.
+
+```python
+for i in range(5):
+    print(i)
+```
+
+Output:
+
+```
+0
+1
+2
+3
+4
+```
+
+`range(start, stop, step)` can also be used to specify a starting point, an ending point, and a step size.
+
+example,
+
+```python
+for i in range(1, 10, 2):
+    print(i)
+```
+
+Output:
+
+```
+1
+3
+5
+7
+9
+```
+
+**enumerate**: Adds a counter to an iterable, returning both the index and the value in the form of _tuples_.
+
+```python
+fruits = ["apple", "banana", "cherry"]
+for index, fruit in enumerate(fruits):
+    print(f"Index: {index}, Fruit: {fruit}")
+```
+
+Output:
+
+```
+Index: 0, Fruit: apple
+Index: 1, Fruit: banana
+Index: 2, Fruit: cherry
+```
+
+**zip**: Combines multiple iterables (like lists or tuples) into a single iterable of tuples, pairing elements from each iterable.
+
+```python
+names = ["Alice", "Bob", "Charlie"]
+ages = [25, 30, 35]
+for name, age in zip(names, ages):
+    print(f"{name} is {age} years old.")
+```
+
+Output:
+
+```
+Alice is 25 years old.
+Bob is 30 years old.
+Charlie is 35 years old.
+```
+
+**while loop**
+
+A `while` loop continues to execute as long as a specified condition is true. It is useful when you don't know beforehand how many iterations you need.
+
+```python
+# You want to simulate tea heating.
+# It starts at 40°C and boils at 100°C.
+# Task:
+# Use a while loop.
+# Increase temperature by 15 until it reaches or exceeds 100.
+# Print each temperature step.
+temperature = 40
+
+
+while temperature < 100:
+    print(f"Current temperature: {temperature}")
+    temperature += 15
+
+print("Tea is ready to boil")
+```
+
+Output:
+
+```
+Current temperature: 40
+Current temperature: 55
+Current temperature: 70
+Current temperature: 85
+Current temperature: 100
+Tea is ready to boil
+```
+
+**break and continue**
+
+- **break**: Exits the loop immediately, regardless of the loop's condition.
+- **continue**: Skips the current iteration and moves to the next iteration of the loop.
+
+```python
+flavours = ["Ginger", "Out of Stock", "Lemon", "Discontinued", "Tulsi"]
+
+for flavour in flavours:
+    if flavour == "Out of Stock":
+        continue
+    if flavour == "Discontinued":
+        print(f"{flavour} item found")
+        break
+    print(f"{flavour} item found")
+
+print("Out side of loop")
+```
+
+Output:
+
+```
+Ginger item found
+Lemon item found
+Discontinued item found
+Out side of loop
+```
+
+**for-else**
+
+A `for-else` loop executes the `else` block when the loop completes normally (i.e. it does not encounter a `break` statement). If the loop is exited early using `break`, the `else` block is skipped.
+
+```python
+numbers = [1, 2, 3, 4, 5]
+for number in numbers:
+    if number == 3:
+        print("Found 3, breaking the loop.")
+        break
+else:
+    print("Loop completed without finding 3.")
+```
+
+Output:
+
+```
+Found 3, breaking the loop.
+```
+
+In the above example, the `else` block is not executed because the loop was exited with a `break` statement.
+If the loop completes without encountering a `break`, the `else` block will execute. <br />
+Example:
+
+```python
+numbers = [1, 2, 4, 5]
+for number in numbers:
+    if number == 3:
+        print("Found 3, breaking the loop.")
+        break
+else:
+    print("Loop completed without finding 3.")
+```
+
+Output:
+
+```
+Loop completed without finding 3.
+```
+
+In this case, the `else` block is executed because the loop completed normally without encountering a `break` statement.
+
+<hr />
+
+**Statement, expression & Walrus Operator**
+
+- **Statement**: A statement is a complete instruction that performs an action. It can be a single line of code or a block of code. Examples include variable assignments, function definitions, loops, and conditionals. Statements do not return a value.
+
+  Example:
+
+  ```python
+  x = 5  # This is a statement
+  ```
+
+- **Expression**: An expression is a piece of code that evaluates to a value. It can be as simple as a single value or a more complex combination of values, operators, and function calls. Expressions can be used within statements.
+
+  Example:
+
+  ```python
+  y = x + 10  # This is an expression that evaluates to a value
+  ```
+
+- **Walrus Operator (`:=`)**: Introduced in Python 3.8, the walrus operator allows you to assign a value to a variable as part of an expression. This can be useful for reducing code duplication and improving readability.
+
+  Example:
+
+  ```python
+     if (n := len(my_list)) > 5:
+         print(f"List is too long with {n} elements.")
+  ```
+
+  In this example, the length of `my_list` is assigned to the variable `n` while checking if it is greater than 5. This avoids the need to call `len(my_list)` twice.
+
+**Note**: The walrus operator is particularly useful in situations where you want to use the result of an expression immediately after assigning it to a variable, such as in loops or conditionals.
+
+<hr />
+
+**Using Dictionaries instead of repeated cases**
+
+Instead of using multiple `if-elif` statements to handle different cases, you can use a dictionary to map keys to values or functions. This can make your code cleaner and more maintainable.
+
+```python
+users = [
+    {"id": 1, "total": 100, "coupon": "P20"},
+    {"id": 2, "total": 140, "coupon": "F10"},
+    {"id": 3, "total": 80, "coupon": "P50"},
+]
+
+discounts = {"P20": (0.2, 0), "F10": (0.5, 0), "P50": (0, 10)}
+
+
+for user in users:
+    percent, fixed = discounts.get(user["coupon"], (0, 0))
+    discount = user["total"] * percent + fixed
+    print(
+        f"id of {user['id']} paid {user['total']} and got discount for next visit of rupees {discount}"
+    )
+```
+
+Output:
+
+```
+id of 1 paid 100 and got discount for next visit of rupees 20.0
+id of 2 paid 140 and got discount for next visit of rupees 70.
+id of 3 paid 80 and got discount for next visit of rupees 50
+```
+
+<hr />
+
 **After learning python**
 
 - [PEP 8 – Style Guide for Python Code](https://peps.python.org/pep-0008/)
