@@ -658,6 +658,99 @@ id of 3 paid 80 and got discount for next visit of rupees 50
 
 <hr />
 
+**Scopes and Name Resolution**
+
+- **Local** - inside a function or method
+- **Enclosing** - from outer function if nested
+- **Global** - at the top level of a module or script
+- **Built-in** - names provided by Python (like `print`, `len`, etc.)
+
+**Global and nonlocal**
+
+- **Global**: Variables defined at the top level of a module or script. They can be accessed from anywhere in the module.
+- **Nonlocal**: Variables defined in an enclosing scope (like an outer function) but not in the global scope. They can be accessed from nested functions.
+- To modify a global variable inside a function, you need to use the `global` keyword. Similarly, to modify a nonlocal variable inside a nested function, you need to use the `nonlocal` keyword.
+- Example of global and nonlocal:
+
+```python
+# Global variable
+x = 10
+def outer_function():
+    # Nonlocal variable
+    y = 20
+
+    def inner_function():
+        global x  # Accessing global variable
+        nonlocal y  # Accessing nonlocal variable
+        x += 5  # Modifying global variable
+        y += 5  # Modifying nonlocal variable
+        print(f"Global x: {x}, Nonlocal y: {y}")
+
+    inner_function()
+outer_function()
+print(f"Global x after function call: {x}")  # Output: Global x after function call: 15
+```
+
+Output:
+
+```
+Global x: 15, Nonlocal y: 25
+Global x after function call: 15
+```
+
+<hr />
+
+**Default traps**
+
+- Default arguments in Python functions are evaluated only once when the function is defined, not each time the function is called. This can lead to unexpected behavior if mutable objects (like lists or dictionaries) are used as default values.
+
+Let's see an example of this trap:
+
+```python
+def my_function(arg=[]):
+    arg.append(1)
+    return arg
+print(my_function())  # Output: [1]
+print(my_function())  # Output: [1, 1] (same list is modified)
+```
+
+- In the above example, the default argument `arg` is a list that is created only once when the function is defined. Therefore, every time the function is called without an argument, it modifies the same list, leading to unexpected results.
+- To avoid this trap, it is recommended to use `None` as the default value for mutable objects and then check for it inside the function. This way, a new object is created each time the function is called without an argument.
+
+```python
+def my_function(arg=None):
+    if arg is None:
+        arg = []  # Create a new list if no argument is provided
+    arg.append(1)
+    return arg
+print(my_function())  # Output: [1]
+print(my_function())  # Output: [1] (new list created each time)
+```
+
+<hr />
+
+**args and kwargs**
+
+- `*args`: Allows you to pass a variable number of positional arguments to a function. It collects the extra positional arguments into a tuple.
+- `**kwargs`: Allows you to pass a variable number of keyword arguments to a function. It collects the extra keyword arguments into a dictionary.
+- Example of using `*args` and `**kwargs`:
+
+```python
+def my_function(*args, **kwargs):
+    print("Positional arguments:", args)
+    print("Keyword arguments:", kwargs)
+my_function(1, 2, 3, name="Alice", age=30)
+```
+
+Output:
+
+```
+Positional arguments: (1, 2, 3)
+Keyword arguments: {'name': 'Alice', 'age': 30}
+```
+
+<hr />
+
 **After learning python**
 
 - [PEP 8 – Style Guide for Python Code](https://peps.python.org/pep-0008/)
